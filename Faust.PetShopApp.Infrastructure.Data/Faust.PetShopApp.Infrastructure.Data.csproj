@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>Faust.PetShopApp.Infrastructure</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Faust.PetShopApp.Core\Faust.PetShopApp.Core.csproj" />
+      <ProjectReference Include="..\Faust.PetShopApp.Domain\Faust.PetShopApp.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

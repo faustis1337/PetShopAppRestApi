@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faust.PetShopApp.UI", "Faust.PetShopApp.UI\Faust.PetShopApp.UI.csproj", "{B1DFD6D0-3D83-41F4-8BE1-896425181A8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faust.PetShopApp.Core", "Faust.PetShopApp.Core\Faust.PetShopApp.Core.csproj", "{BD4A2D2C-A596-4CF7-8939-C90BB180EA28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faust.PetShopApp.Domain", "Faust.PetShopApp.Domain\Faust.PetShopApp.Domain.csproj", "{697EE09E-7816-481D-9D13-801D79B684EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faust.PetShopApp.Infrastructure.Data", "Faust.PetShopApp.Infrastructure.Data\Faust.PetShopApp.Infrastructure.Data.csproj", "{BE097427-059E-4615-B66A-B72B1C2542ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1DFD6D0-3D83-41F4-8BE1-896425181A8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1DFD6D0-3D83-41F4-8BE1-896425181A8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1DFD6D0-3D83-41F4-8BE1-896425181A8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1DFD6D0-3D83-41F4-8BE1-896425181A8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD4A2D2C-A596-4CF7-8939-C90BB180EA28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD4A2D2C-A596-4CF7-8939-C90BB180EA28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD4A2D2C-A596-4CF7-8939-C90BB180EA28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD4A2D2C-A596-4CF7-8939-C90BB180EA28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{697EE09E-7816-481D-9D13-801D79B684EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{697EE09E-7816-481D-9D13-801D79B684EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{697EE09E-7816-481D-9D13-801D79B684EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{697EE09E-7816-481D-9D13-801D79B684EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE097427-059E-4615-B66A-B72B1C2542ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE097427-059E-4615-B66A-B72B1C2542ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE097427-059E-4615-B66A-B72B1C2542ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE097427-059E-4615-B66A-B72B1C2542ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
