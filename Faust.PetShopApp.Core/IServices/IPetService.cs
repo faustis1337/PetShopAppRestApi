@@ -13,5 +13,6 @@ namespace Faust.PetShopApp.Core.IServices
 
         Pet UpdatePet(Pet pet);
         Pet Find(int id);
+        Pet CreatePet(Pet pet);
     }
 }

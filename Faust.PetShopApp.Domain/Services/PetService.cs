@@ -56,5 +56,10 @@ namespace Faust.PetShopApp.Domain.Services
         {
             return _petRepository.ReadPets().SingleOrDefault(pet => pet.Id == id);
         }
+
+        public Pet CreatePet(Pet pet)
+        {
+            return _petRepository.Create(pet);
+        }
     }
 }
