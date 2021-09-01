@@ -9,10 +9,6 @@ namespace Faust.PetShopApp.Infrastructure.Repositories
         private static int _ids;
         private static List<Pet> _pets = new List<Pet>();
 
-        public PetRepository()
-        {
-        }
-        
         public IEnumerable<Pet> ReadPets()
         {
             return _pets;
