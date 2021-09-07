@@ -59,8 +59,8 @@ namespace Faust.PetShopApp.WebApi.Controllers
             return Ok(_ownerService.Delete(id));
         }
 
-        [HttpPut]
-        public ActionResult<Owner> Update(Owner owner)
+        [HttpPut("{id}")]
+        public ActionResult<Owner> Update(int id,Owner owner)
         {
             return Ok(_ownerService.Update(owner));
         }

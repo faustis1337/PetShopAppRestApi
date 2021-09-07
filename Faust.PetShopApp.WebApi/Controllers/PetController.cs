@@ -45,14 +45,14 @@ namespace Faust.PetShopApp.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public Pet updatePet(int id, Pet pet)
+        public ActionResult<Pet> updatePet(int id, Pet pet)
         {
-            if (id != pet.Id)
+            if (id < 1 || id != pet.Id)
             {
-                return null;
+                return BadRequest("Parameter ID and Pet ID must be the same");
             }
 
-            return _petService.UpdatePet(pet);
+            return Ok(_petService.UpdatePet(pet));
         }
         
     }
