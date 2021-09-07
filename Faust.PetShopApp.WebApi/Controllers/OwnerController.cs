@@ -26,18 +26,29 @@ namespace Faust.PetShopApp.WebApi.Controllers
                 return Ok(o);
             }
 
-            return null;
+            return BadRequest();
         }
 
         [HttpGet]
         public ActionResult<Owner> Read(int id)
         {
-            return _ownerService.Read(id);
+            Owner owner = _ownerService.Read(id);
+            if (owner != null)
+            {
+                return Ok(_ownerService.Read(id));
+            }
+
+            return BadRequest();
         }
         
         [HttpGet("all")]
-        public List<Owner> ReadAll()
+        public ActionResult<List<Owner>> ReadAll()
         {
+            List<Owner> owners = _ownerService.ReadAll();
+            if (owners != null && owners.Capacity > 0)
+            {
+                return _ownerService.ReadAll();
+            }
             return _ownerService.ReadAll();
         }
     
@@ -45,13 +56,13 @@ namespace Faust.PetShopApp.WebApi.Controllers
         [HttpDelete]
         public ActionResult<Owner> Delete(int id)
         {
-            return _ownerService.Delete(id);
+            return Ok(_ownerService.Delete(id));
         }
 
         [HttpPut]
         public ActionResult<Owner> Update(Owner owner)
         {
-            return _ownerService.Update(owner);
+            return Ok(_ownerService.Update(owner));
         }
     }
 }

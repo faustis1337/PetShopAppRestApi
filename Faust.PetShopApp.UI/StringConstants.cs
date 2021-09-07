@@ -8,6 +8,8 @@
         public static readonly string CreateNewPetMenuText = "Select 3 to create a new pet";
         public static readonly string DeletePetMenuText = "Select 4 to delete a pet";
         public static readonly string UpdatePetMenuText = "Select 5 to update pet";
+        public static readonly string SortedByPetsPriceTest = "Select 6 to show sorted pet list by price";
+        public static readonly string ShowTopFiveCheapestPets = "Select 7 to show top five cheapest pets";
         public static readonly string ExitAppMenuText = "Select 0 to exit app";
     }
 }

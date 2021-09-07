@@ -77,6 +77,14 @@ namespace Faust.PetShopApp.UI
                     PrintUpdatePet();
                 }
 
+                if (choice == 6)
+                {
+                    PrintSortedByPrice();
+                }
+                if (choice == 7)
+                {
+                    PrintTopFiveCheapestPets();
+                }
                 if (choice == -1)
                 {
                     Print("Try again! ");
@@ -85,6 +93,26 @@ namespace Faust.PetShopApp.UI
                 Console.ReadLine();
                 Clear();
                 ShowMainMenu();
+            }
+        }
+
+        private void PrintTopFiveCheapestPets()
+        {
+            Print("Top Five Cheapest Pets: ");
+            PrintNewLine();
+            foreach (var pet in _petService.GetCheapestFivePets())
+            {
+                Print($"ID: {pet.Id} Name: {pet.Name} Type: {pet.Type.Name} Price: {pet.Price}");
+            }
+        }
+
+        private void PrintSortedByPrice()
+        {
+            Print("Showing all pets sorted by price: ");
+            PrintNewLine();
+            foreach (var pet in _petService.GetPetsByPrice())
+            {
+                Print($"ID: {pet.Id} Name: {pet.Name} Type: {pet.Type.Name} Price: {pet.Price}");
             }
         }
 
@@ -107,15 +135,17 @@ namespace Faust.PetShopApp.UI
             Print(StringConstants.CreateNewPetMenuText);
             Print(StringConstants.DeletePetMenuText);
             Print(StringConstants.UpdatePetMenuText);
+            Print(StringConstants.SortedByPetsPriceTest);
+            Print(StringConstants.ShowTopFiveCheapestPets);
             Print(StringConstants.ExitAppMenuText);
         }
 
         public void PrintShowAllPets()
         {
+            Print("Showing all pets: ");
+            PrintNewLine();
             foreach (var pet in _petService.GetPets())
             {
-                Print("Showing all pets: ");
-                PrintNewLine();
                 Print($"ID: {pet.Id} Name: {pet.Name} Type: {pet.Type.Name}");
             }
         }

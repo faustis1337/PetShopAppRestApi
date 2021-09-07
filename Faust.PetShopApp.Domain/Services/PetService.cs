@@ -28,6 +28,18 @@ namespace Faust.PetShopApp.Domain.Services
             return query.ToList();
         }
 
+        public List<Pet> GetPetsByPrice()
+        {
+            var list = _petRepository.ReadPets();
+            return list.OrderBy(pet => pet.Price).ToList();
+        }
+
+        public List<Pet> GetCheapestFivePets()
+        {
+            var list = _petRepository.ReadPets();
+            return list.OrderBy(pet => pet.Price).Take(5).ToList();
+        }
+
         public Pet CreatePet(string name, PetType type, DateTime birthDate, DateTime soldDate, string color,
             double price)
         {
