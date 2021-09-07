@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Faust.PetShopApp.Core.IServices;
 using Faust.PetShopApp.Core.Models;
 using Faust.PetShopApp.Domain.IRepositories;
 

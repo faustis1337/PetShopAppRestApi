@@ -29,13 +29,12 @@ namespace Faust.PetShopApp.WebApi.Controllers
         }
 
         [HttpPost] //body there is a json that matches the pet
-        public Pet Create(Pet pet)
+        public ActionResult<Pet> Create(Pet pet)
         {
-            if (_petService == null)
+            if (string.IsNullOrEmpty(pet.Name))
             {
-                return null;
+                return BadRequest("You need to enter Pet Name");
             }
-
             return _petService.CreatePet(pet);
         }
 
