@@ -29,7 +29,14 @@ namespace Faust.PetShopApp.WebApi.Controllers
             {
                 return BadRequest("ID has to be 1 or above");
             }
-            return Ok(_petService.Find(id));
+
+            Pet pet = _petService.Find(id);
+            if (pet != null)
+            {
+                return Ok(pet);
+            }
+
+            return BadRequest("Could not find the pet");
         }
 
         [HttpPost] //body there is a json that matches the pet
@@ -39,8 +46,15 @@ namespace Faust.PetShopApp.WebApi.Controllers
             {
                 return BadRequest("ID has to be 1 or above");
             }
-            return Ok(_petService.CreatePet(pet));
-        }
+
+            Pet p = _petService.CreatePet(pet);
+            if (p != null)
+            {
+                return Ok(p);
+            }
+            
+            return BadRequest("Pet could not be created");
+            }
 
         [HttpDelete("{id}")]
         public ActionResult<Pet> DeletePet(int id)
@@ -49,7 +63,14 @@ namespace Faust.PetShopApp.WebApi.Controllers
             {
                 return BadRequest("ID has to be 1 or above");
             }
-            return Ok(_petService.DeletePet(id));
+
+            Pet pet = _petService.DeletePet(id);
+            if (pet != null)
+            {
+                return Ok(pet);
+            }
+
+            return BadRequest("Pet could not be deleted!");
         }
 
         [HttpPut("{id}")]
@@ -65,7 +86,13 @@ namespace Faust.PetShopApp.WebApi.Controllers
 
             }
 
-            return Ok(_petService.UpdatePet(pet));
+            Pet p = _petService.UpdatePet(pet);
+            if (p != null)
+            {
+                return Ok(p);
+            }
+
+            return BadRequest("Pet could not be updated");
         }
         
     }

@@ -26,7 +26,7 @@ namespace Faust.PetShopApp.WebApi.Controllers
                 return Ok(o);
             }
 
-            return BadRequest();
+            return BadRequest("Owner could not be created");
         }
 
         [HttpGet]
@@ -35,10 +35,10 @@ namespace Faust.PetShopApp.WebApi.Controllers
             Owner owner = _ownerService.Read(id);
             if (owner != null)
             {
-                return Ok(_ownerService.Read(id));
+                return Ok(owner);
             }
 
-            return BadRequest();
+            return BadRequest("Owner could not be found");
         }
         
         [HttpGet("all")]
@@ -49,20 +49,49 @@ namespace Faust.PetShopApp.WebApi.Controllers
             {
                 return _ownerService.ReadAll();
             }
-            return _ownerService.ReadAll();
+
+            BadRequest("Owner list is empty or null");
         }
     
 
         [HttpDelete]
         public ActionResult<Owner> Delete(int id)
         {
-            return Ok(_ownerService.Delete(id));
+            if (id < 1)
+            {
+                return BadRequest("id is less than 1");
+            }
+
+            Owner owner = _ownerService.Delete(id);
+            if (owner != null)
+            {
+                return Ok(owner);
+            }
+
+            return BadRequest("Owner could not be deleted!");
         }
 
         [HttpPut("{id}")]
         public ActionResult<Owner> Update(int id,Owner owner)
         {
-            return Ok(_ownerService.Update(owner));
+            if (id < 1)
+            {
+                return BadRequest("ID has to be above 1");
+            }
+            if(id != owner.Id)
+            {
+                return BadRequest("Owner ID must be the same");
+
+            }
+
+            Owner o = _ownerService.Update(owner);
+            if (o != null)
+            {
+                return Ok(o);
+
+            }
+
+            return BadRequest("Owner could not be updated!");
         }
     }
 }
