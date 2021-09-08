@@ -23,9 +23,13 @@ namespace Faust.PetShopApp.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public Pet pet(int id)
+        public ActionResult<Pet> GetPet(int id)
         {
-            return _petService.Find(id);
+            if (id < 1)
+            {
+                return BadRequest("ID has to be 1 or above");
+            }
+            return Ok(_petService.Find(id));
         }
 
         [HttpPost] //body there is a json that matches the pet
@@ -33,23 +37,32 @@ namespace Faust.PetShopApp.WebApi.Controllers
         {
             if (string.IsNullOrEmpty(pet.Name))
             {
-                return BadRequest("You need to enter Pet Name");
+                return BadRequest("ID has to be 1 or above");
             }
-            return _petService.CreatePet(pet);
+            return Ok(_petService.CreatePet(pet));
         }
 
         [HttpDelete("{id}")]
-        public Pet Delete(int id)
+        public ActionResult<Pet> DeletePet(int id)
         {
-            return _petService.DeletePet(id);
+            if (id < 1)
+            {
+                return BadRequest("ID has to be 1 or above");
+            }
+            return Ok(_petService.DeletePet(id));
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Pet> updatePet(int id, Pet pet)
+        public ActionResult<Pet> UpdatePet(int id, Pet pet)
         {
-            if (id < 1 || id != pet.Id)
+            if (id < 1)
             {
-                return BadRequest("Parameter ID and Pet ID must be the same");
+                return BadRequest("ID has to be above 1");
+            }
+            if(id != pet.Id)
+            {
+                return BadRequest("Pet ID must be the same or ID");
+
             }
 
             return Ok(_petService.UpdatePet(pet));
