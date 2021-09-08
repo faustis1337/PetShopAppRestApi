@@ -50,7 +50,7 @@ namespace Faust.PetShopApp.WebApi.Controllers
                 return _ownerService.ReadAll();
             }
 
-            BadRequest("Owner list is empty or null");
+            return BadRequest("Owner list is empty or null");
         }
     
 
