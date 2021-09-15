@@ -20,37 +20,19 @@ namespace Faust.PetShopApp.WebApi.Controllers
         [HttpPost]
         public ActionResult<Owner> Create(Owner owner)
         {
-            Owner o = _ownerService.Create(owner);
-            if (o != null)
-            {
-                return Ok(o);
-            }
-
-            return BadRequest("Owner could not be created");
+            return _ownerService.Create(owner);
         }
 
         [HttpGet]
         public ActionResult<Owner> Read(int id)
         {
-            Owner owner = _ownerService.Read(id);
-            if (owner != null)
-            {
-                return Ok(owner);
-            }
-
-            return BadRequest("Owner could not be found");
+            return _ownerService.Read(id);
         }
         
         [HttpGet("all")]
         public ActionResult<List<Owner>> ReadAll()
         {
-            List<Owner> owners = _ownerService.ReadAll();
-            if (owners != null && owners.Capacity > 0)
-            {
-                return _ownerService.ReadAll();
-            }
-
-            return BadRequest("Owner list is empty or null");
+            return _ownerService.ReadAll();
         }
     
 
@@ -59,16 +41,9 @@ namespace Faust.PetShopApp.WebApi.Controllers
         {
             if (id < 1)
             {
-                return BadRequest("id is less than 1");
+                return BadRequest("ID has to be 1 or above");
             }
-
-            Owner owner = _ownerService.Delete(id);
-            if (owner != null)
-            {
-                return Ok(owner);
-            }
-
-            return BadRequest("Owner could not be deleted!");
+            return _ownerService.Delete(id);
         }
 
         [HttpPut("{id}")]
@@ -76,22 +51,15 @@ namespace Faust.PetShopApp.WebApi.Controllers
         {
             if (id < 1)
             {
-                return BadRequest("ID has to be above 1");
+                return BadRequest("ID has to be 1 or above");
             }
             if(id != owner.Id)
             {
                 return BadRequest("Owner ID must be the same");
 
             }
-
-            Owner o = _ownerService.Update(owner);
-            if (o != null)
-            {
-                return Ok(o);
-
-            }
-
-            return BadRequest("Owner could not be updated!");
+            
+            return _ownerService.Update(owner);
         }
     }
 }

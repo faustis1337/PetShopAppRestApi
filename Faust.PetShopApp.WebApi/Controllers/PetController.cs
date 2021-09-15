@@ -29,14 +29,8 @@ namespace Faust.PetShopApp.WebApi.Controllers
             {
                 return BadRequest("ID has to be 1 or above");
             }
-
-            Pet pet = _petService.Find(id);
-            if (pet != null)
-            {
-                return Ok(pet);
-            }
-
-            return BadRequest("Could not find the pet");
+            
+            return _petService.Find(id);
         }
 
         [HttpPost] //body there is a json that matches the pet
@@ -46,15 +40,9 @@ namespace Faust.PetShopApp.WebApi.Controllers
             {
                 return BadRequest("ID has to be 1 or above");
             }
-
-            Pet p = _petService.CreatePet(pet);
-            if (p != null)
-            {
-                return Ok(p);
-            }
             
-            return BadRequest("Pet could not be created");
-            }
+            return _petService.CreatePet(pet);
+        }
 
         [HttpDelete("{id}")]
         public ActionResult<Pet> DeletePet(int id)
@@ -64,13 +52,13 @@ namespace Faust.PetShopApp.WebApi.Controllers
                 return BadRequest("ID has to be 1 or above");
             }
 
-            Pet pet = _petService.DeletePet(id);
-            if (pet != null)
+            var pet = _petService.DeletePet(id);
+            if (pet == null)
             {
-                return Ok(pet);
+                return StatusCode(404, "Did not find Pet with ID " + id);
             }
 
-            return BadRequest("Pet could not be deleted!");
+            return Ok($"Customer with ID: {id} is Deleted");
         }
 
         [HttpPut("{id}")]
@@ -78,21 +66,15 @@ namespace Faust.PetShopApp.WebApi.Controllers
         {
             if (id < 1)
             {
-                return BadRequest("ID has to be above 1");
+                return BadRequest("ID has to be 1 or above");
             }
             if(id != pet.Id)
             {
                 return BadRequest("Pet ID must be the same or ID");
 
             }
-
-            Pet p = _petService.UpdatePet(pet);
-            if (p != null)
-            {
-                return Ok(p);
-            }
-
-            return BadRequest("Pet could not be updated");
+            
+            return _petService.UpdatePet(pet);
         }
         
     }

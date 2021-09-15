@@ -14,6 +14,11 @@ namespace Faust.PetShopApp.Infrastructure.Repositories
             return _pets;
         }
 
+        public Pet Read(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Pet Create(Pet pet)
         {
             pet.Id = ++_ids;

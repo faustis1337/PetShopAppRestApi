@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 using Faust.PetShopApp.Core.IServices;
 using Faust.PetShopApp.Domain.IRepositories;
 using Faust.PetShopApp.Domain.Services;
+using Faust.PetShopApp.Infrastructure;
+using Faust.PetShopApp.Infrastructure.EFRepositories;
 using Faust.PetShopApp.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,12 +33,15 @@ namespace Faust.PetShopApp.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<PetAppContext>(
+                builder => builder.UseInMemoryDatabase("ThaDB"));
+            
             services.AddControllers();
             services.AddScoped<IPetService, PetService>();
-            services.AddScoped<IPetRepository, PetRepository>();
+            services.AddScoped<IPetRepository, EFPetRepository>();
             services.AddScoped<IPetTypeService, PetTypeService>();
-            services.AddScoped<IPetTypeRepository, PetTypeRepository>();
-            services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddScoped<IPetTypeRepository, EFPetTypeRepository>();
+            services.AddScoped<IOwnerRepository, OwnerRepositoryEF>();
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddSwaggerGen(c =>
             {

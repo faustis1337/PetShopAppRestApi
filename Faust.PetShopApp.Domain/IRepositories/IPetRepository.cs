@@ -6,6 +6,7 @@ namespace Faust.PetShopApp.Domain.IRepositories
     public interface IPetRepository
     {
         IEnumerable<Pet> ReadPets();
+        Pet Read(int id);
         Pet Create(Pet pet);
         Pet Delete(int id);
         Pet Update(Pet updatePet);
