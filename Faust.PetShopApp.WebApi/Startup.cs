@@ -40,7 +40,7 @@ namespace Faust.PetShopApp.WebApi
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IPetRepository, EFPetRepository>();
             services.AddScoped<IPetTypeService, PetTypeService>();
-            services.AddScoped<IPetTypeRepository, EFPetTypeRepository>();
+            services.AddScoped<IPetTypeRepository, PetTypeRepositoryEF>();
             services.AddScoped<IOwnerRepository, OwnerRepositoryEF>();
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddSwaggerGen(c =>

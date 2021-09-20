@@ -58,7 +58,7 @@ namespace Faust.PetShopApp.WebApi.Controllers
                 return StatusCode(404, "Did not find Pet with ID " + id);
             }
 
-            return Ok($"Customer with ID: {id} is Deleted");
+            return Ok(pet);
         }
 
         [HttpPut("{id}")]

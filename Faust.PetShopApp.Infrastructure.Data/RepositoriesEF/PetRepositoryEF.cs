@@ -58,46 +58,95 @@ namespace Faust.PetShopApp.Infrastructure.EFRepositories
         }
 
         public Pet Create(Pet pet)
+        {
+            var entity = new PetEntity
             {
-                var entity = new PetEntity
+                Name = pet.Name,
+                Color = pet.Color,
+                Price = pet.Price,
+                BirthDate = pet.BirthDate,
+                SoldTime = pet.SoldTime,
+                PreviousOwnerID = pet.Id,
+                TypeID = pet.Type.Id
+            };
+            var savedEntity = _ctx.Pets.Add(entity).Entity;
+            _ctx.SaveChanges();
+            return new Pet
+            {
+                Id = savedEntity.Id,
+                Name = savedEntity.Name,
+                Color = savedEntity.Color,
+                Price = savedEntity.Price,
+                BirthDate = savedEntity.BirthDate,
+                SoldTime = savedEntity.SoldTime,
+                PreviousOwner = new Owner
                 {
-                    Name = pet.Name,
-                    Color = pet.Color,
-                    Price = pet.Price,
-                    BirthDate = pet.BirthDate,
-                    SoldTime = pet.SoldTime,
-                    PreviousOwnerID = pet.Id,
-                    TypeID = pet.Type.Id
-                };
-                var savedEntity = _ctx.Pets.Add(entity).Entity;
-                _ctx.SaveChanges();
-                return new Pet
+                    Id = savedEntity.PreviousOwnerID
+                },
+                Type = new PetType
                 {
-                    Id = savedEntity.Id,
-                    Name = savedEntity.Name,
-                    Color = savedEntity.Color,
-                    Price = savedEntity.Price,
-                    BirthDate = savedEntity.BirthDate,
-                    SoldTime = savedEntity.SoldTime,
-                    PreviousOwner = new Owner
-                    {
-                        Id = savedEntity.PreviousOwnerID
-                    },
-                    Type = new PetType
-                    {
-                        Id = savedEntity.TypeID
-                    }
-                };
-            }
+                    Id = savedEntity.TypeID
+                }
+            };
+        }
 
-            public Pet Delete(int id)
+        public Pet Delete(int id)
+        {
+            var entity = _ctx.Pets.FirstOrDefault(pet => pet.Id == id);
+            var deletedEntity = _ctx.Remove(entity).Entity;
+            _ctx.SaveChanges();
+            return new Pet
             {
-                throw new System.NotImplementedException();
-            }
+                Id = deletedEntity.Id,
+                Name = deletedEntity.Name,
+                Color = deletedEntity.Color,
+                Price = deletedEntity.Price,
+                BirthDate = deletedEntity.BirthDate,
+                SoldTime = deletedEntity.SoldTime,
+                PreviousOwner = new Owner
+                {
+                    Id = deletedEntity.Id
+                },
+                Type = new PetType
+                {
+                    Id = deletedEntity.TypeID
+                }
+            };
+        }
 
-            public Pet Update(Pet updatePet)
+        public Pet Update(Pet updatePet)
+        {
+            var updatedEntity = _ctx.Update(_ctx.Pets.Select(typeEntity => new PetEntity()
             {
-                throw new System.NotImplementedException();
-            }
+                Id = updatePet.Id,
+                Name = updatePet.Name,
+                Color = updatePet.Color,
+                Price = updatePet.Price,
+                BirthDate = updatePet.BirthDate,
+                SoldTime = updatePet.SoldTime,
+                PreviousOwnerID = updatePet.Id,
+                TypeID = updatePet.Type.Id
+            }).FirstOrDefault(petEntity => petEntity.Id == petEntity.Id)).Entity;
+            
+            _ctx.SaveChanges();
+            
+            return new Pet
+            {
+                Id = updatedEntity.Id,
+                Name = updatedEntity.Name,
+                Color = updatedEntity.Color,
+                Price = updatedEntity.Price,
+                BirthDate = updatedEntity.BirthDate,
+                SoldTime = updatedEntity.SoldTime,
+                PreviousOwner = new Owner
+                {
+                    Id = updatedEntity.PreviousOwnerID
+                },
+                Type = new PetType
+                {
+                    Id = updatedEntity.TypeID
+                }
+            };
         }
     }
+}

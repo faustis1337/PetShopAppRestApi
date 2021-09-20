@@ -32,6 +32,25 @@ namespace Faust.PetShopApp.Infrastructure.Repositories
         {
             return petTypes;
         }
-        
+
+        public PetType ReadById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PetType Create(PetType petType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PetType Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PetType Update(PetType type)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -25,7 +25,22 @@ namespace Faust.PetShopApp.Domain.Services
         {
             return _petTypeRepository.ReadPetTypes().ToList();
         }
-        
+
+        public PetType ReadById(int id)
+        {
+            return _petTypeRepository.ReadById(id);
+        }
+
+        public PetType Create(PetType petType)
+        {
+            return _petTypeRepository.Create(petType);
+        }
+
+        public PetType Delete(int id)
+        {
+            return _petTypeRepository.Delete(id);
+        }
+
         public string GetAvailableTypesString()
         {
             var list = GetPetTypes();
@@ -44,6 +59,11 @@ namespace Faust.PetShopApp.Domain.Services
             }
             types += ")";
             return types;
+        }
+
+        public PetType Update(PetType type)
+        {
+            return _petTypeRepository.Update(type);
         }
     }
 }
