@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Faust.PetShopApp.Core.IServices;
 using Faust.PetShopApp.Core.Models;
+using Faust.PetShopApp.WebApi.Dto.OwnerDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Faust.PetShopApp.WebApi.Controllers
@@ -24,15 +26,17 @@ namespace Faust.PetShopApp.WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Owner> Read(int id)
+        public ActionResult<OwnerDto> Read(int id)
         {
-            return _ownerService.Read(id);
+            Owner owner = _ownerService.Read(id);
+            
+            return new OwnerDto{Id= owner.Id,FirstName = owner.FirstName,LastName = owner.LastName};
         }
         
         [HttpGet("all")]
-        public ActionResult<List<Owner>> ReadAll()
+        public ActionResult<List<OwnerDto>> ReadAll()
         {
-            return _ownerService.ReadAll();
+            return _ownerService.ReadAll().Select(owner => new OwnerDto{Id = owner.Id,FirstName = owner.FirstName,LastName = owner.LastName}).ToList();
         }
     
 
