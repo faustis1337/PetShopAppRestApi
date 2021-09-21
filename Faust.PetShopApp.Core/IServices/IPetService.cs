@@ -8,7 +8,7 @@ namespace Faust.PetShopApp.Core.IServices
     {
         List<Pet> GetPets();
         List<Pet> GetPetsByType(string type);
-        Pet CreatePet(string name, PetType type, DateTime birthDate, DateTime soldDate, string  color, double price);
+        Pet CreatePet(string name, PetType type, DateTime birthDate, DateTime soldDate, Color  color, double price);
         Pet DeletePet(int id);
 
         Pet UpdatePet(Pet pet);

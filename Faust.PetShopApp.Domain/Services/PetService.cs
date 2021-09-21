@@ -40,7 +40,7 @@ namespace Faust.PetShopApp.Domain.Services
             return list.OrderBy(pet => pet.Price).Take(5).ToList();
         }
 
-        public Pet CreatePet(string name, PetType type, DateTime birthDate, DateTime soldDate, string color,
+        public Pet CreatePet(string name, PetType type, DateTime birthDate, DateTime soldDate, Color color,
             double price)
         {
             return _petRepository.Create(new Pet()

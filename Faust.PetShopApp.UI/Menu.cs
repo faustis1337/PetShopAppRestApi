@@ -210,9 +210,8 @@ namespace Faust.PetShopApp.UI
                 AskForInt("Enter birth day:"));
             var soldDate = new DateTime(AskForInt("Enter sold year:"), AskForInt("Enter sold month:"),
                 AskForInt("Enter sold day:"));
-            Pet pet = _petService.CreatePet(name, petType, birthDate, soldDate, color, price);
-            Print(
-                $"Pet was created with ID {pet.Id}Name {pet.Name} Type {pet.Type} Birth Date {pet.BirthDate} Sold Date {pet.SoldTime} Color {pet.Color} Price {pet.Price}");
+            //Pet pet = _petService.CreatePet(name, petType, birthDate, soldDate, color, price);
+            //Print($"Pet was created with ID {pet.Id}Name {pet.Name} Type {pet.Type} Birth Date {pet.BirthDate} Sold Date {pet.SoldTime} Color {pet.Color} Price {pet.Price}");
         }
 
         public void PrintDeletePet()
@@ -290,7 +289,7 @@ namespace Faust.PetShopApp.UI
                 if (selection == "color")
                 {
                     string color = AskQuestion("Enter pet color:");
-                    pet.Color = color;
+                    //pet.Color = color;
                     if (_petService.UpdatePet(pet) != null)
                     {
                         Print($"Pet with an ID: {pet.Id} has been updated!");

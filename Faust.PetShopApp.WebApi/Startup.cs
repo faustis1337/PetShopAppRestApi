@@ -6,7 +6,7 @@ using Faust.PetShopApp.Core.IServices;
 using Faust.PetShopApp.Domain.IRepositories;
 using Faust.PetShopApp.Domain.Services;
 using Faust.PetShopApp.Infrastructure;
-using Faust.PetShopApp.Infrastructure.EFRepositories;
+using Faust.PetShopApp.Infrastructure.RepositoriesEF;
 using Faust.PetShopApp.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,6 +43,8 @@ namespace Faust.PetShopApp.WebApi
             services.AddScoped<IPetTypeRepository, PetTypeRepositoryEF>();
             services.AddScoped<IOwnerRepository, OwnerRepositoryEF>();
             services.AddScoped<IOwnerService, OwnerService>();
+            services.AddScoped<IColorRepository, ColorRepositoryEF>();
+            services.AddScoped<IColorService, ColorService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Faust.PetShopApp.WebApi", Version = "v1"});

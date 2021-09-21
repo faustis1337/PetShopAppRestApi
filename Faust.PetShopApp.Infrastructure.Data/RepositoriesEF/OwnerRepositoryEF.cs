@@ -4,7 +4,7 @@ using Faust.PetShopApp.Core.Models;
 using Faust.PetShopApp.Domain.IRepositories;
 using Faust.PetShopApp.Infrastructure.Entities;
 
-namespace Faust.PetShopApp.Infrastructure.EFRepositories
+namespace Faust.PetShopApp.Infrastructure.RepositoriesEF
 {
     public class OwnerRepositoryEF:IOwnerRepository
     {
