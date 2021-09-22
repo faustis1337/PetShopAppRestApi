@@ -33,8 +33,16 @@ namespace Faust.PetShopApp.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PetAppContext>(
-                builder => builder.UseInMemoryDatabase("ThaDB"));
+        //    services.AddDbContext<PetAppContext>(builder => builder.UseInMemoryDatabase("ThaDB"));
+        services.AddDbContext<PetAppContext>(opt =>
+        {
+            var loggerFactory = LoggerFactory.Create(configure: builder =>
+            {
+                builder.AddConsole();
+            });
+            opt.UseLoggerFactory(loggerFactory)
+                .UseSqlite("Data Source=petapp.db");
+        });
             
             services.AddControllers();
             services.AddScoped<IPetService, PetService>();
@@ -52,13 +60,15 @@ namespace Faust.PetShopApp.WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,PetAppContext ctx)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Faust.PetShopApp.WebApi v1"));
+                ctx.Database.EnsureDeleted();
+                ctx.Database.EnsureCreated();
             }
 
             app.UseHttpsRedirection();
