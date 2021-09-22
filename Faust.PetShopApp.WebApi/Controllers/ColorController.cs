@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Faust.PetShopApp.Core.IServices;
 using Faust.PetShopApp.Core.Models;
+using Faust.PetShopApp.WebApi.Dto.ColorDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Faust.PetShopApp.WebApi.Controllers
@@ -17,36 +19,39 @@ namespace Faust.PetShopApp.WebApi.Controllers
         }
         
         [HttpPost]
-        public ActionResult<Color> Create(Color owner)
+        public ActionResult<ColorDto> Create(Color color)
         {
-            return _colorService.Create(owner);
+            Color c = _colorService.Create(color);
+            return new ColorDto {Id = c.Id, Name = c.Name};
         }
 
         [HttpGet]
-        public ActionResult<Color> Read(int id)
+        public ActionResult<ColorDto> Read(int id)
         {
-            return _colorService.Read(id);
+            Color c = _colorService.Read(id);
+            return new ColorDto{Id = c.Id,Name = c.Name};
         }
         
         [HttpGet("all")]
-        public ActionResult<List<Color>> ReadAll()
+        public ActionResult<List<ColorDto>> ReadAll()
         {
-            return _colorService.ReadAll();
+            return _colorService.ReadAll().Select(c =>new ColorDto{Id = c.Id,Name = c.Name} ).ToList();
         }
     
 
         [HttpDelete]
-        public ActionResult<Color> Delete(int id)
+        public ActionResult<ColorDto> Delete(int id)
         {
             if (id < 1)
             {
                 return BadRequest("ID has to be 1 or above");
             }
-            return _colorService.Delete(id);
+            Color c = _colorService.Delete(id);
+            return new ColorDto{Id = c.Id,Name = c.Name};
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Color> Update(int id,Color color)
+        public ActionResult<ColorDto> Update(int id,Color color)
         {
             if (id < 1)
             {
@@ -57,8 +62,8 @@ namespace Faust.PetShopApp.WebApi.Controllers
                 return BadRequest("Owner ID must be the same");
 
             }
-            
-            return _colorService.Update(color);
+            Color c = _colorService.Update(color);
+            return new ColorDto{Id = c.Id,Name = c.Name};
         }
     }
     }

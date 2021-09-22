@@ -10,6 +10,15 @@ namespace Faust.PetShopApp.Infrastructure
         {
             
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PetEntity>()
+                .HasOne<OwnerEntity>(p => p.Owner)
+                .WithMany()
+                .HasForeignKey(p => p.OwnerId);
+        }
+
         public DbSet<PetEntity> Pets { get; set; }
         public DbSet<PetTypeEntity> PetTypes { get; set; }
         public DbSet<OwnerEntity> Owners { get; set; }

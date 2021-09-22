@@ -27,11 +27,11 @@ namespace Faust.PetShopApp.Infrastructure.RepositoriesEF
                 SoldTime = entity.SoldTime,
                 PreviousOwner = new Owner()
                 {
-                    Id = entity.PreviousOwnerID
+                    Id = entity.PreviousOwnerId
                 },
                 Type = new PetType()
                 {
-                    Id = entity.TypeID
+                    Id = entity.TypeId
                 }
             }).ToList();
         }
@@ -48,11 +48,11 @@ namespace Faust.PetShopApp.Infrastructure.RepositoriesEF
                 SoldTime = entity.SoldTime,
                 PreviousOwner = new Owner()
                 {
-                    Id = entity.PreviousOwnerID
+                    Id = entity.PreviousOwnerId
                 },
                 Type = new PetType()
                 {
-                    Id = entity.TypeID
+                    Id = entity.TypeId
                 }
             }).FirstOrDefault(pet => pet.Id == id);
         }
@@ -66,8 +66,8 @@ namespace Faust.PetShopApp.Infrastructure.RepositoriesEF
                 Price = pet.Price,
                 BirthDate = pet.BirthDate,
                 SoldTime = pet.SoldTime,
-                PreviousOwnerID = pet.Id,
-                TypeID = pet.Type.Id
+                PreviousOwnerId = pet.Id,
+                TypeId = pet.Type.Id
             };
             var savedEntity = _ctx.Pets.Add(entity).Entity;
             _ctx.SaveChanges();
@@ -81,11 +81,11 @@ namespace Faust.PetShopApp.Infrastructure.RepositoriesEF
                 SoldTime = savedEntity.SoldTime,
                 PreviousOwner = new Owner
                 {
-                    Id = savedEntity.PreviousOwnerID
+                    Id = savedEntity.PreviousOwnerId
                 },
                 Type = new PetType
                 {
-                    Id = savedEntity.TypeID
+                    Id = savedEntity.TypeId
                 }
             };
         }
@@ -109,7 +109,7 @@ namespace Faust.PetShopApp.Infrastructure.RepositoriesEF
                 },
                 Type = new PetType
                 {
-                    Id = deletedEntity.TypeID
+                    Id = deletedEntity.TypeId
                 }
             };
         }
@@ -124,8 +124,8 @@ namespace Faust.PetShopApp.Infrastructure.RepositoriesEF
                 Price = updatePet.Price,
                 BirthDate = updatePet.BirthDate,
                 SoldTime = updatePet.SoldTime,
-                PreviousOwnerID = updatePet.Id,
-                TypeID = updatePet.Type.Id
+                PreviousOwnerId = updatePet.Id,
+                TypeId = updatePet.Type.Id
             }).FirstOrDefault(petEntity => petEntity.Id == petEntity.Id)).Entity;
             
             _ctx.SaveChanges();
@@ -140,11 +140,11 @@ namespace Faust.PetShopApp.Infrastructure.RepositoriesEF
                 SoldTime = updatedEntity.SoldTime,
                 PreviousOwner = new Owner
                 {
-                    Id = updatedEntity.PreviousOwnerID
+                    Id = updatedEntity.PreviousOwnerId
                 },
                 Type = new PetType
                 {
-                    Id = updatedEntity.TypeID
+                    Id = updatedEntity.TypeId
                 }
             };
         }
