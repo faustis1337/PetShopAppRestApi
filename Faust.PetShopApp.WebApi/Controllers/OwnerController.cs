@@ -20,9 +20,10 @@ namespace Faust.PetShopApp.WebApi.Controllers
         }
         // GET
         [HttpPost]
-        public ActionResult<Owner> Create(Owner owner)
+        public ActionResult<OwnerDto> Create(Owner owner)
         {
-            return _ownerService.Create(owner);
+            Owner o = _ownerService.Create(owner);
+            return new OwnerDto{Id= o.Id,FirstName = o.FirstName,LastName = o.LastName};
         }
 
         [HttpGet]
@@ -41,17 +42,18 @@ namespace Faust.PetShopApp.WebApi.Controllers
     
 
         [HttpDelete]
-        public ActionResult<Owner> Delete(int id)
+        public ActionResult<OwnerDto> Delete(int id)
         {
             if (id < 1)
             {
                 return BadRequest("ID has to be 1 or above");
             }
-            return _ownerService.Delete(id);
+            Owner owner = _ownerService.Delete(id);
+            return new OwnerDto{Id= owner.Id,FirstName = owner.FirstName,LastName = owner.LastName};
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Owner> Update(int id,Owner owner)
+        public ActionResult<OwnerDto> Update(int id,Owner owner)
         {
             if (id < 1)
             {
@@ -62,8 +64,8 @@ namespace Faust.PetShopApp.WebApi.Controllers
                 return BadRequest("Owner ID must be the same");
 
             }
-            
-            return _ownerService.Update(owner);
+            Owner o = _ownerService.Update(owner);
+            return new OwnerDto{Id= o.Id,FirstName = o.FirstName,LastName = o.LastName};
         }
     }
 }
