@@ -53,6 +53,8 @@ namespace Faust.PetShopApp.WebApi
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<IColorRepository, ColorRepositoryEF>();
             services.AddScoped<IColorService, ColorService>();
+            services.AddScoped<IUserRepository, UserRepositoryEF>();
+            services.AddScoped<IUserService, UserService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Faust.PetShopApp.WebApi", Version = "v1"});
