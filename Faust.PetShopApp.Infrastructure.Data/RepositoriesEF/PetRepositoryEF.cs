@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Faust.PetShopApp.Core.Filtering;
 using Faust.PetShopApp.Core.Models;
 using Faust.PetShopApp.Domain.IRepositories;
 using Faust.PetShopApp.Infrastructure.Entities;
@@ -15,7 +16,7 @@ namespace Faust.PetShopApp.Infrastructure.RepositoriesEF
             _ctx = ctx;
         }
 
-        public IEnumerable<Pet> ReadPets()
+        public IEnumerable<Pet> ReadPets(Filter filter)
         {
             return _ctx.Pets.Select(entity => new Pet
             {
@@ -33,7 +34,7 @@ namespace Faust.PetShopApp.Infrastructure.RepositoriesEF
                 {
                     Id = entity.TypeId
                 }
-            }).ToList();
+            }).Skip(filter.Count* (filter.Page-1)).Take(filter.Count).ToList();
         }
 
         public Pet Read(int id)
@@ -147,6 +148,11 @@ namespace Faust.PetShopApp.Infrastructure.RepositoriesEF
                     Id = updatedEntity.TypeId
                 }
             };
+        }
+
+        public int Count()
+        {
+            return _ctx.Pets.Count();
         }
     }
 }

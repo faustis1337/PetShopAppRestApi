@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Faust.PetShopApp.Core.Filtering;
 using Faust.PetShopApp.Core.IServices;
 using Faust.PetShopApp.Core.Models;
 using Faust.PetShopApp.WebApi.Dto;
@@ -19,9 +20,14 @@ namespace Faust.PetShopApp.WebApi.Controllers
         }
         
         [HttpGet]
-        public List<PetDto> ReadAll()
+        public ActionResult<PetDto> ReadAll([FromQuery]Filter filter)
         {
-            return _petService.GetPets().Select(pet => new PetDto{Id = pet.Id,Name = pet.Name,PreviousOwnerName = pet.Name}).ToList();
+            int totalCount = _petService.Count();
+            if (filter.Page < 1 || filter.Count * (filter.Page - 1) > totalCount)
+            {
+                return BadRequest("filter error");
+            }
+            return Ok(_petService.GetPets(filter).Select(pet => new PetDto{Id = pet.Id,Name = pet.Name,PreviousOwnerName = pet.Name}).ToList());
         }
 
         [HttpGet("{id}")]
