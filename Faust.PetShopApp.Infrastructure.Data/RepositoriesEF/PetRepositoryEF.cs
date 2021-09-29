@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Faust.PetShopApp.Core.Filtering;
 using Faust.PetShopApp.Core.Models;
@@ -18,23 +19,71 @@ namespace Faust.PetShopApp.Infrastructure.RepositoriesEF
 
         public IEnumerable<Pet> ReadPets(Filter filter)
         {
-            return _ctx.Pets.Select(entity => new Pet
+            var selectQuery = _ctx.Pets
+                .Select(entity => new Pet
+                {
+                    Id = entity.Id,
+                    Name = entity.Name,
+                    Color = entity.Color,
+                    Price = entity.Price,
+                    BirthDate = entity.BirthDate,
+                    SoldTime = entity.SoldTime,
+                    PreviousOwner = new Owner()
+                    {
+                        Id = entity.PreviousOwnerId
+                    },
+                    Type = new PetType()
+                    {
+                        Id = entity.TypeId
+                    }
+                });
+            var paging = selectQuery.Skip(filter.Count* (filter.Page-1))
+                .Take(filter.Count);
+            if (string.IsNullOrEmpty(filter.SortOrder) || filter.SortOrder.Equals("asc"))
             {
-                Id = entity.Id,
-                Name = entity.Name,
-                Color = entity.Color,
-                Price = entity.Price,
-                BirthDate = entity.BirthDate,
-                SoldTime = entity.SoldTime,
-                PreviousOwner = new Owner()
+                switch (filter.SortBy)
                 {
-                    Id = entity.PreviousOwnerId
-                },
-                Type = new PetType()
-                {
-                    Id = entity.TypeId
+                    case "id":
+                        paging = paging.OrderBy(pet => pet.Id);
+                        break;
+                    case "name":
+                        paging = paging.OrderBy(pet => pet.Name);
+                        break;
                 }
-            }).Skip(filter.Count* (filter.Page-1)).Take(filter.Count).ToList();
+            }
+            else
+            {
+                switch (filter.SortBy)
+                {
+                    case "id":
+                        paging = paging.OrderByDescending(pet => pet.Id);
+                        break;
+                    case "name":
+                        paging = paging.OrderByDescending(pet => pet.Name);
+                        break;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(filter.Search) && !string.IsNullOrEmpty(filter.SearchBy.ToLower()))
+            {
+                switch (filter.SearchBy)
+                {
+                    case "id":
+                        int id;
+                        if (int.TryParse(filter.Search, out id))
+                        {
+                            paging = paging.Where(p => p.Id == id);
+                        }
+                        break;
+                    case "name":
+                        paging = paging.Where(p => p.Name.StartsWith(filter.Search));
+                        break;
+                    default:
+                        throw new ArgumentException("Enter correct filter");
+                }
+            }
+
+            return paging.ToList();
         }
 
         public Pet Read(int id)

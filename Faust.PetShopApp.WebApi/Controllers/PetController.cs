@@ -23,11 +23,17 @@ namespace Faust.PetShopApp.WebApi.Controllers
         public ActionResult<PetDto> ReadAll([FromQuery]Filter filter)
         {
             int totalCount = _petService.Count();
-            if (filter.Page < 1 || filter.Count * (filter.Page - 1) > totalCount)
+            var list = _petService.GetPets(filter);
+            return Ok(new GetAllPetDto
             {
-                return BadRequest("filter error");
-            }
-            return Ok(_petService.GetPets(filter).Select(pet => new PetDto{Id = pet.Id,Name = pet.Name,PreviousOwnerName = pet.Name}).ToList());
+                List = list.Select(pet => new PetDto
+                {
+                    Id = pet.Id,
+                    Name = pet.Name,
+                    PreviousOwnerName = pet.Name
+                }).ToList(),
+                TotalCount = totalCount
+            });
         }
 
         [HttpGet("{id}")]
