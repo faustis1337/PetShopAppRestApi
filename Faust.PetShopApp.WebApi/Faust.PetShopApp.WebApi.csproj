@@ -18,6 +18,7 @@
       <ProjectReference Include="..\Faust.PetShopApp.Core\Faust.PetShopApp.Core.csproj" />
       <ProjectReference Include="..\Faust.PetShopApp.Domain\Faust.PetShopApp.Domain.csproj" />
       <ProjectReference Include="..\Faust.PetShopApp.Infrastructure.Data\Faust.PetShopApp.Infrastructure.Data.csproj" />
+      <ProjectReference Include="..\Faust.PetShopApp.MySecurity\Faust.PetShopApp.MySecurity.csproj" />
     </ItemGroup>
 
 </Project>

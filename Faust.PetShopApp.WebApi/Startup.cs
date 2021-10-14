@@ -9,6 +9,8 @@ using Faust.PetShopApp.Domain.Services;
 using Faust.PetShopApp.Infrastructure;
 using Faust.PetShopApp.Infrastructure.Entities;
 using Faust.PetShopApp.Infrastructure.RepositoriesEF;
+using Faust.PetShopApp.MySecurity.Authentication;
+using Faust.PetShopApp.MySecurity.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -20,6 +22,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace Faust.PetShopApp.WebApi
 {
@@ -35,6 +38,7 @@ namespace Faust.PetShopApp.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            Byte[] secretBytes = new byte[40];
         //    services.AddDbContext<PetAppContext>(builder => builder.UseInMemoryDatabase("ThaDB"));
         services.AddDbContext<PetAppContext>(opt =>
         {
@@ -55,11 +59,26 @@ namespace Faust.PetShopApp.WebApi
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<IColorRepository, ColorRepositoryEF>();
             services.AddScoped<IColorService, ColorService>();
-            services.AddScoped<IUserRepository, UserRepositoryEF>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddDbContext<SecurityContext>(opt => opt.UseInMemoryDatabase("Security"));
+            services.AddTransient<ISecurityContextInitializer, SecurityMemoryInitializer>();
+            services.AddScoped<UserRepository>();
+            services.AddSingleton<IAuthenticationHelper>(new AuthenticationHelper(secretBytes));
+
+            services.AddScoped<IUserAuthenticator, UserAuthenticator>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Faust.PetShopApp.WebApi", Version = "v1"});
+            });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("petshop-policy",
+                    builder =>
+                    {
+                        builder
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .WithOrigins("http://localhost:4200");
+                    });
             });
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,6 +104,8 @@ namespace Faust.PetShopApp.WebApi
 
             app.UseAuthorization();
 
+            app.UseCors("petshop-policy");
+            
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

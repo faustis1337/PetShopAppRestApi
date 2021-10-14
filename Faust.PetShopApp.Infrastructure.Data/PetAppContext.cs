@@ -32,6 +32,6 @@ namespace Faust.PetShopApp.Infrastructure
         public DbSet<PetTypeEntity> PetTypes { get; set; }
         public DbSet<OwnerEntity> Owners { get; set; }
         public DbSet<ColorEntity> Colors { get; set; }
-        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<RoleEntity> Roles { get; set; }
     }
 }

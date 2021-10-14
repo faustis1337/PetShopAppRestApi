@@ -1,8 +1,8 @@
 ﻿using Faust.PetShopApp.Core.Models;
 
-namespace Faust.PetShopApp.Infrastructure.Helpers
+namespace Faust.PetShopApp.Security
 {
-    public interface IAuthenticationHelper
+    public interface IAuthentication
     {
         /// <summary>
         /// Create a hash of the given password. Will return both hash and the salt used.

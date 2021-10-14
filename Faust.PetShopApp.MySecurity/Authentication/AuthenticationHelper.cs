@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Faust.PetShopApp.Core.Models;
+using Faust.PetShopApp.MySecurity.Entities;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Faust.PetShopApp.Infrastructure.Helpers
+namespace Faust.PetShopApp.MySecurity.Authentication
 {
-    public class AuthenticationHelper:IAuthenticationHelper
+    public class AuthenticationHelper : IAuthenticationHelper
     {
-        private readonly byte[] _secretBytes;
-        
+        private byte[] secretBytes;
+
         public AuthenticationHelper(Byte[] secret)
         {
-            _secretBytes = secret;
+            secretBytes = secret;
         }
+        
         
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
@@ -43,22 +44,26 @@ namespace Faust.PetShopApp.Infrastructure.Helpers
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Username)
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Sid, user.Id.ToString())
             };
 
-            if (user.IsAdmin)
-                claims.Add(new Claim(ClaimTypes.Role, "Administrator"));
+            //I add all of the User's roles as Claims to the token:
+
+
+            claims.Add(new Claim(ClaimTypes.Role, user.Role));
+
 
             var token = new JwtSecurityToken(
                 new JwtHeader(new SigningCredentials(
-                    new SymmetricSecurityKey(_secretBytes),
+                    new SymmetricSecurityKey(secretBytes),
                     SecurityAlgorithms.HmacSha256)),
                 new JwtPayload(null, // issuer - not needed (ValidateIssuer = false)
                     null, // audience - not needed (ValidateAudience = false)
                     claims.ToArray(),
                     DateTime.Now, // notBefore
                     DateTime.Now.AddMinutes(10))); // expires
-            
+
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }

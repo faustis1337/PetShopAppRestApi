@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faust.PetShopApp.Infrastruc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faust.PetShopApp.WebApi", "Faust.PetShopApp.WebApi\Faust.PetShopApp.WebApi.csproj", "{558B8EAF-FB2B-499B-A67E-C436F5DFDA0D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faust.PetShopApp.MySecurity", "Faust.PetShopApp.MySecurity\Faust.PetShopApp.MySecurity.csproj", "{C1290C2C-08E6-4815-BE90-5F81645AB581}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{558B8EAF-FB2B-499B-A67E-C436F5DFDA0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{558B8EAF-FB2B-499B-A67E-C436F5DFDA0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{558B8EAF-FB2B-499B-A67E-C436F5DFDA0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1290C2C-08E6-4815-BE90-5F81645AB581}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1290C2C-08E6-4815-BE90-5F81645AB581}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1290C2C-08E6-4815-BE90-5F81645AB581}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1290C2C-08E6-4815-BE90-5F81645AB581}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
